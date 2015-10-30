@@ -13,6 +13,8 @@ window.addEventListener("wheel", onwheel, false);
             'scrollTop': $target.offset().top
         }, 900, 'swing', function () {
             window.location.hash = target;
+
+            setTimeout(function(){onwheel();}, 200);
         });
     });
 
@@ -27,40 +29,29 @@ document.getElementById('home').addEventListener('mousemove', cityAction, false)
 function onwheel(event){
     var e = event || window.event;
 
+//Initiate var
+    var menu = document.getElementById('home').children[0];
 
-    /*
-// wheelDelta не дает возможность узнать количество пикселей
-    var delta = e.deltaY || e.detail || e.wheelDelta;
-
-    var list = document.getElementById('wizard_local_list');
     var scrollTop = window.pageYOffset ? window.pageYOffset : (document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop);
 
-//Элемент с другим списком
-    var well = document.getElementById('wizard_local_list');
+    if(parseInt(scrollTop) > 600){
 
-    if((parseInt(well.offsetTop) - 800) < scrollTop){
-        if(parseInt(document.body.clientWidth) > 1000){
-            setTimeout(function(){well.children[0].style.margin = '30px 0 55px';well.children[0].style.opacity = '1';}, 0);
-            setTimeout(function(){well.children[1].style.margin = '30px 0 55px';well.children[1].style.opacity = '1';}, 500);
-            setTimeout(function(){well.children[2].style.margin = '30px 0 55px';well.children[2].style.opacity = '1';}, 1100);
-        }else{
-            setTimeout(function(){well.children[0].style.margin = '30px auto 55px';well.children[0].style.opacity = '1';}, 0);
-            setTimeout(function(){well.children[1].style.margin = '30px auto 55px';well.children[1].style.opacity = '1';}, 500);
-            setTimeout(function(){well.children[2].style.margin = '30px auto 55px';well.children[2].style.opacity = '1';}, 1100);
-        }
+        menu.className = 'menu_hover';
+        setTimeout(function(){
+            menu.style.top = '0px';
+        }, 100);
+
+    }else if((parseInt(scrollTop) < 400) && (parseInt(scrollTop) > 200)) {
+        menu.style.top = '-70px';
+        setTimeout(function(){
+            menu.className = 'menu';
+        }, 100);
     }
-
-
- */
-
-
-    //well.innerHTML = delta + "<br>" + scrollTop + "<br> Положение блока - " + document.getElementById('wizard_scroll').offsetTop;
-
 }
 
 
 function createAjax(){//AJAX ОБЪЕКТ...
-    if(typeof(XMLHttpRequest) == 'undefined')return new ActiveXObject('Microsoft.XMLHTTP')
+    if(typeof(XMLHttpRequest) == 'undefined')return new ActiveXObject('Microsoft.XMLHTTP');
     else return new XMLHttpRequest()
 }
 
